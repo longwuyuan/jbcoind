@@ -4,7 +4,7 @@ WORKDIR /root
 
 RUN apt-get -y update && \
 	apt-get -y upgrade && \
-	apt-get -y install git curl lsof net-tools openssl gcc g++ wget git cmake protobuf-compiler libprotobuf-dev libssl-dev
+	apt-get -y install iputils-ping vim-tiny net-tools git curl lsof openssl gcc g++ wget git cmake protobuf-compiler libprotobuf-dev libssl-dev 
 
 RUN  mkdir boost && \
 	cd boost && \
@@ -25,12 +25,15 @@ RUN cd /root && \
 RUN cd /root/jbcoin/my_build && \
     cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_ROOT=/root/boost/boost_1_67_0 -DCMAKE_INSTALL_PREFIX=/opt/jbcoin .. && \
     cmake --build . -- -j2 && \
-    ln -s /root/jbcoin/my_build/jbcoind /usr/bin/jbcoind && \
-    echo "/usr/bin/jbcoind --net --conf /root/jbcoin/my_build/jbcoind.cfg" > /start.sh && \
+    cp /root/jbcoin/cfg/validators.txt /root/jbcoin/my_build/validators.txt && \
+    ln -s /root/jbcoin/my_build/jbcoind /usr/bin/jbcoind
+ 
+RUN echo "#! /bin/bash" && \
+    echo "exec /root/jbcoin/my_build/jbcoind --net --conf /root/jbcoin/my_build/jbcoind.cfg" >> /start.sh && \
     chmod +x /start.sh
 
 COPY jbcoind.cfg /root/jbcoin/my_build/jbcoind.cfg
 
 EXPOSE  5005 15005 6006 50235
 
-ENTRYPOINT  [ "/start.sh"]
+ENTRYPOINT  [ "/start.sh" ]
