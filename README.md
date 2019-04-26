@@ -10,6 +10,9 @@ Dockerization of https://github.com/JBcoin-JBC/JBcoin
 
 - TODO - Storage configuration for persistence of any data
 
+- TODO - Fix `CMAKE_INSTALL_PREFIX` not working. Did not work for me yet.
+
+
 ```
 2019-Apr-26 04:42:22.656035473 ValidatorList:WRN New quorum of 18446744073709551615 exceeds the number of trusted validators (0)
 2019-Apr-26 04:42:22.656045527 LedgerConsensus:NFO Entering consensus process, watching, synced=yes
