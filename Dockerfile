@@ -28,6 +28,6 @@ RUN cd /root && \
 
 COPY jbcoind.cfg /root/jbcoin/my_build/jbcoind.cfg
 
-EXPOSE  5005 50235
+EXPOSE  5005/tcp 6006/tcp 15005/tcp 50235/udp
 
 ENTRYPOINT  [ "/start.sh" ]
