@@ -1,0 +1,7 @@
+version: '3'
+services:
+  jbcoind:
+    build: .
+    ports:
+     - "5005:5005"
+     - "50235:502335/udp"
